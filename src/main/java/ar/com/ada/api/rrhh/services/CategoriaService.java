@@ -23,4 +23,26 @@ public class CategoriaService {
         return repository.findAll();
 
     }
+
+    public List<Empleado> traerEmpleadosPorCategoria(int categoriaId) {
+
+        Optional<Categoria> cOptional = repository.findById(categoriaId);
+        List<Empleado> listaVacia = new ArrayList<>(); // listavacia
+        if (cOptional.isPresent()) {
+            return (cOptional.get()).getEmpleados(); // cOptional.get devuelve un objeto categoria.
+        }
+        return listaVacia; // o sino return new Arraylist<>() sin declararla arriba.
+    }
+
+    public Categoria buscarCategoriaPorId(int categoriaId) {
+
+        Optional<Categoria> cOptional = repository.findById(categoriaId);
+
+        if (cOptional.isPresent()) {
+
+            return cOptional.get();
+
+        }
+        return null;
+    }
 }
