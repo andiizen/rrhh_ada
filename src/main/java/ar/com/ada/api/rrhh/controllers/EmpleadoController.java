@@ -1,6 +1,8 @@
 package ar.com.ada.api.rrhh.controllers;
 
 import java.util.*;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.web.bind.annotation.RestController;
@@ -46,5 +48,15 @@ public class EmpleadoController {
         return ResponseEntity.ok(empleadoService.listarEmpleados());
 
     }
+    @GetMapping("/empleados/{id}")
+    public ResponseEntity<?> buscarEmpleadoPorId(@PathVariable int id){
+        Empleado empleado = empleadoService.traerEmpleadoPorId(id);
 
+        if(empleado != null) {
+            return ResponseEntity.ok(empleado);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+        //return ResponseEntity.notFound().build();
+    }
 }
