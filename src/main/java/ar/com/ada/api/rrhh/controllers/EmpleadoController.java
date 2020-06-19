@@ -20,23 +20,7 @@ public class EmpleadoController {
     @Autowired
     CategoriaService categoriaService;
 
-
-
-    GenericResponse resp = new GenericResponse();
-    resp.isOk = true;
-    resp.id= empleado.getEmpleadoId();
-    resp.message = "Empleado generado con éxito";
-
-    return ResponseEntity.ok(resp);
-
-    // @PostMapping("/empleados") // Se debe cambiar el metodo void para poder
-    // devolver a Front
-    // public ResponseEntity<?> crearEmpleado(@RequestBody Empleado empleado) {
-
-    // empleadoService.crearEmpleado(empleado);
-
-    // return ResponseEntity.ok(empleado.getEmpleadoId());
-
+ 
     @PostMapping("/empleados") // Se pide info basica a Front
     public ResponseEntity<?> crearEmpleado(@RequestBody InfoBasicaEmpleadoRequest info) {
         Empleado empleado = new Empleado();
@@ -46,14 +30,18 @@ public class EmpleadoController {
         empleado.setFechaAlta(new Date());
         empleado.setEstadoId(1);
         empleado.setCategoria(categoriaService.buscarCategoriaPorId(info.categoriaId));
-
         empleadoService.crearEmpleado(empleado);
-
-        return ResponseEntity.ok(empleado.getEmpleadoId());
+        
+        GenericResponse resp = new GenericResponse();
+        resp.isOk = true;
+        resp.id= empleado.getEmpleadoId();
+        resp.message = "Empleado generado con éxito";
+        
+        return ResponseEntity.ok(resp);
     }
 
     @GetMapping("/empleados")
-    public ResponseEntity<List<Empleado>> listarEmpleados() {
+    public ResponseEntity<?> listarEmpleados() {
 
         return ResponseEntity.ok(empleadoService.listarEmpleados());
 

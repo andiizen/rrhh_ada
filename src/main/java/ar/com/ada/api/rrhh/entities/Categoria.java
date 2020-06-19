@@ -3,6 +3,7 @@ package ar.com.ada.api.rrhh.entities;
 import java.math.BigDecimal;
 import java.util.*;
 import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
@@ -16,6 +17,7 @@ public class Categoria {
     @Column(name = "sueldo_base")
     private BigDecimal sueldoBase;
     @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonIgnore
     private List<Empleado> empleados;
 
     public int getCategoriaId() {
