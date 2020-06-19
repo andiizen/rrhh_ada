@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.*;
 
 import ar.com.ada.api.rrhh.entities.Empleado;
 import ar.com.ada.api.rrhh.models.requests.InfoBasicaEmpleadoRequest;
-import ar.com.ada.api.rrhh.services.CategoriaService;
-import ar.com.ada.api.rrhh.services.EmpleadoService;
+import ar.com.ada.api.rrhh.models.responses.*;
+import ar.com.ada.api.rrhh.services.*;
 import ar.com.ada.api.rrhh.repos.*;
 
 @RestController
@@ -19,6 +19,15 @@ public class EmpleadoController {
     EmpleadoService empleadoService;
     @Autowired
     CategoriaService categoriaService;
+
+
+
+    GenericResponse resp = new GenericResponse();
+    resp.isOk = true;
+    resp.id= empleado.getEmpleadoId();
+    resp.message = "Empleado generado con éxito";
+
+    return ResponseEntity.ok(resp);
 
     // @PostMapping("/empleados") // Se debe cambiar el metodo void para poder
     // devolver a Front
