@@ -1,5 +1,6 @@
 package ar.com.ada.api.rrhh.services;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,22 +12,22 @@ import ar.com.ada.api.rrhh.repos.CategoriaRepository;
 @Service
 public class CategoriaService {
     @Autowired
-    CategoriaRepository repository;
+    CategoriaRepository categoriaRepository;
 
     public void crearCategoria(Categoria categoria) {
-        repository.save(categoria);
+        categoriaRepository.save(categoria);
 
     }
 
     public List<Categoria> listarCategorias() {
 
-        return repository.findAll();
+        return categoriaRepository.findAll();
 
     }
 
     public List<Empleado> traerEmpleadosPorCategoria(int categoriaId) {
 
-        Optional<Categoria> cOptional = repository.findById(categoriaId);
+        Optional<Categoria> cOptional = categoriaRepository.findById(categoriaId);
         List<Empleado> listaVacia = new ArrayList<>(); // listavacia
         if (cOptional.isPresent()) {
             return (cOptional.get()).getEmpleados(); // cOptional.get devuelve un objeto categoria.
@@ -36,7 +37,7 @@ public class CategoriaService {
 
     public Categoria buscarCategoriaPorId(int categoriaId) {
 
-        Optional<Categoria> cOptional = repository.findById(categoriaId);
+        Optional<Categoria> cOptional = categoriaRepository.findById(categoriaId);
 
         if (cOptional.isPresent()) {
 
@@ -44,5 +45,13 @@ public class CategoriaService {
 
         }
         return null;
+    }
+
+    public void actualizarSueldoBase(Categoria categoriaOriginal, BigDecimal sueldoBase) {
+
+        categoriaOriginal.setSueldoBase(sueldoBase);
+
+        categoriaRepository.save(categoriaOriginal);
+
     }
 }
