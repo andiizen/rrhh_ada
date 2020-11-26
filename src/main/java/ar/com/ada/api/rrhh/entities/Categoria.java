@@ -51,5 +51,6 @@ public class Categoria {
     public void setEmpleados(List<Empleado> empleados) {
         this.empleados = empleados;
     }
-    
+    public void hola(){
+}
 }
